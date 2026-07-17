@@ -12,39 +12,15 @@
 | ![Voxgig](https://www.voxgig.com/res/img/vgt01r.png) | This open source module is sponsored and supported by [Voxgig](https://www.voxgig.com). |
 |---|---|
 
-## Quick Setup
 
+Provides access to the Stytch API using the Seneca *provider*
+convention. Stytch API entities are represented as Seneca entities so
+that they can be accessed using the Seneca entity API and messages.
+See [seneca-entity](https://github.com/senecajs/seneca-entity) and the [Seneca Data
+Entities
+Tutorial](https://senecajs.org/docs/tutorials/understanding-data-entities.html) for more details on the Seneca entity API.
+NOTE: underlying third party SDK needs to be replaced as out of date and has a security issue.
 
-```js
-
-// Setup - get the key value (<SECRET>) separately from a vault or
-// environment variable.
-const seneca = Seneca({ legacy: false })
-  .test() // sets up the Seneca instance for testing: easier to read layout
-  .use('promisify')
-  .use('entity')
-  // Get API keys using the seneca-env plugin
-  .use('env', {
-    var: {
-      $STYTCH_PROJECTID: String,
-      $STYTCH_SECRET: String,
-    }
-  })
-  .use('provider', {
-    provider: {
-      stytch: {
-        keys: {
-          project_id: { value: '$STYTCH_PROJECTID' },
-          secret: { value: '$STYTCH_SECRET' },
-        }
-      }
-    }
-  })
-  // load up the 'provider/stytch/user' entity
-  .use('stytch-provider')
-  // it is recommended that you get seneca instance 'ready' before moving on 
-  await seneca.ready()
-```
 
 ## Install
 
