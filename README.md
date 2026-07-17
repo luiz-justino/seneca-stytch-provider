@@ -12,6 +12,40 @@
 | ![Voxgig](https://www.voxgig.com/res/img/vgt01r.png) | This open source module is sponsored and supported by [Voxgig](https://www.voxgig.com). |
 |---|---|
 
+## Quick Setup
+
+
+```js
+
+// Setup - get the key value (<SECRET>) separately from a vault or
+// environment variable.
+const seneca = Seneca({ legacy: false })
+  .test() // sets up the Seneca instance for testing: easier to read layout
+  .use('promisify')
+  .use('entity')
+  // Get API keys using the seneca-env plugin
+  .use('env', {
+    var: {
+      $STYTCH_PROJECTID: String,
+      $STYTCH_SECRET: String,
+    }
+  })
+  .use('provider', {
+    provider: {
+      stytch: {
+        keys: {
+          project_id: { value: '$STYTCH_PROJECTID' },
+          secret: { value: '$STYTCH_SECRET' },
+        }
+      }
+    }
+  })
+  // load up the 'provider/stytch/user' entity
+  .use('stytch-provider')
+  // it is recommended that you get seneca instance 'ready' before moving on 
+  await seneca.ready()
+```
+
 ## Install
 
 ```sh
